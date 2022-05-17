@@ -1,0 +1,33 @@
+# This config should be placed in following path:
+#   $HOME/Library/Application Support/io.parity.ethereum/config.toml
+
+[parity]
+chain = "/Users/peiling/Projects/dingpl716/nft_news/resources/parity/chain_spec.json"
+# Blockchain and settings will be stored in $HOME/ethereum.
+base_path = "$HOME/ethereum"
+keys_path = "/Users/peiling/Projects/dingpl716/nft_news/resources/parity/keys"
+
+[account]
+password = ["/Users/peiling/Projects/dingpl716/nft_news/resources/parity/password"]
+
+[mining]
+# The authrity to sing blocks.
+engine_signer = "0x9174d70d98093d57234287c48731a8a2b9e11277"
+# Authorities reseal automatically
+reseal_on_txs = "none"
+# Allows for free transactions.
+usd_per_tx = "0"
+# Prepare a block to seal even when there are no miners connected.
+force_sealing = true
+
+[footprint]
+# Compute and Store tracing data. (Enables trace_* APIs).
+tracing = "on"
+
+[rpc]
+# Only selected APIs will be exposed over this interface.
+apis = ["web3", "eth", "pubsub", "net", "parity", "parity_pubsub", "traces", "rpc", "parity_accounts"]
+
+
+
+

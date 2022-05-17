@@ -1,4 +1,5 @@
 TOP_DIR=.
+NFT_NEWS_HOME=${TOP_DIR}
 OUTPUT_DIR=$(TOP_DIR)/output
 README=$(TOP_DIR)/README.md
 
@@ -71,6 +72,10 @@ watch:
 run:
 	@echo "Running the software..."
 	@iex -S mix
+
+chain:
+	@echo "Running parity chain..."
+	@openethereum --config resources/parity/config.toml
 
 submodule:
 	@git submodule update --init --recursive

@@ -2,6 +2,9 @@
 
 ### Data for testing
 
-- Miner private key: 
-  - `<<159, 129, 91, 177, 245, 222, 156, 242, 64, 35, 91, 62, 84, 131, 157, 207, 102, 115, 187, 72, 162, 207, 190, 236, 218, 20, 97, 63, 30, 164, 135, 101>>`
-  - `0x9f815bb1f5de9cf240235b3e54839dcf6673bb48a2cfbeecda14613f1ea48765`
+Miner
+- address: `0x9174d70d98093d57234287c48731a8a2b9e11277`
+  
+Rich Account
+- address: `0xfb597fa80538b61c1be2434b0dcdc73df06d4a82`
+- private key: `0x9f815bb1f5de9cf240235b3e54839dcf6673bb48a2cfbeecda14613f1ea48765`
