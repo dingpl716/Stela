@@ -1,11 +1,11 @@
 // scripts/deploy.js
 async function main() {
   // We get the contract to deploy
-  const Stele = await ethers.getContractFactory('Stele');
-  console.log('Deploying Stele...');
-  const stele = await Stele.deploy();
-  await stele.deployed();
-  console.log('Stele deployed to:', stele.address);
+  const Stela = await ethers.getContractFactory('Stela');
+  console.log('Deploying Stela...');
+  const stela = await Stela.deploy();
+  await stela.deployed();
+  console.log('Stela deployed to:', stela.address);
 }
 
 main()
