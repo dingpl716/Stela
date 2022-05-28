@@ -34,9 +34,14 @@ make contracts
 
 ```javascript
 const [deployer, alice, bob, charley, david] = await ethers.getSigners()
-const contractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
+const stelaAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
 const Stela = await ethers.getContractFactory('Stela');
-const stela = await Stela.attach(contractAddress);
+const stela = await Stela.attach(stelaAddress);
+await stela.startAuction(1, 10, 1000);
+
+const auctionAddress = await stela.getAuction();
+const Auction = await ethers.getContractFactory('SimpleAuction');
+const auction = await Auction.attach(auctionAddress);
 
 // In the console you will send transaction using `deployer` by default,
 // if you want to send transaction with another wallet, you need to `connect`
