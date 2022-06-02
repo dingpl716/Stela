@@ -50,3 +50,8 @@ const auction = await Auction.attach(auctionAddress);
 await stela.connect(alice).setApprovalForAll(charley.address, true);
 
 ```
+
+## Securities
+
+Here are some points to think about when doing tests:
+1. Would startAuction / endAuction be stuck somehow. If this happens, the whole contract is stuck.

@@ -58,21 +58,16 @@ contract Stela is ERC721Enumerable, Ownable {
     }
 
     function safeMint(address to, uint256 tokenId) public onlyOwner {
-        ERC721._safeMint(to, tokenId);
+        _safeMint(to, tokenId);
     }
 
     function getStelaText(uint256 tokenId) public view returns (string memory) {
-        require(_exists(tokenId), "Query text for nonexistent token");
+        require(_exists(tokenId), "Query stela text for nonexistent token");
         return _stelaText[tokenId];
     }
 
     function updateStelaText(uint256 tokenId, string memory text) public {
-        require(_exists(tokenId), "Update text for nonexistent token");
-        address owner = ERC721.ownerOf(tokenId);
-        require(
-            _msgSender() == owner || isApprovedForAll(owner, _msgSender()),
-            "Text updating caller is not owner nor approved for all"
-        );
+        require(_isApprovedOrOwner(_msgSender(), tokenId), "Updating stela text caller is not owner nor approved");
 
         _stelaText[tokenId] = text;
 
@@ -110,7 +105,7 @@ contract Stela is ERC721Enumerable, Ownable {
 
         emit AuctionEnded(tokenId, address(_auctionContract), winner, amount);
 
-        ERC721._safeMint(winner, tokenId);
+        _safeMint(winner, tokenId);
     }
 
     function getAuction() public view returns (address) {
