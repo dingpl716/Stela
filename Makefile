@@ -3,7 +3,7 @@ NFT_NEWS_HOME=${TOP_DIR}
 
 build:
 	@echo "Building the software..."
-	@rm -rf _build/dev/lib/{ocap_rpc,abi}
+	# @rm -rf _build/dev/lib/{ocap_rpc,abi}
 	@make format
 
 format:

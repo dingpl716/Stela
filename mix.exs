@@ -1,4 +1,4 @@
-defmodule NftNews.MixProject do
+defmodule Stela.MixProject do
   use Mix.Project
 
   def project do
@@ -15,7 +15,7 @@ defmodule NftNews.MixProject do
   def application do
     [
       extra_applications: [:logger],
-      mod: {NftNews.Application, []}
+      mod: {Stela.Application, []}
     ]
   end
 
