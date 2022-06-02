@@ -1,4 +1,4 @@
-# nft_news
+# Stela
 
 ### Data for testing
 

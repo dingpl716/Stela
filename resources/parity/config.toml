@@ -2,13 +2,13 @@
 #   $HOME/Library/Application Support/io.parity.ethereum/config.toml
 
 [parity]
-chain = "/Users/peiling/Projects/dingpl716/nft_news/resources/parity/chain_spec.json"
+chain = "/Users/peiling/Projects/dingpl716/Stela/resources/parity/chain_spec.json"
 # Blockchain and settings will be stored in $HOME/ethereum.
 base_path = "$HOME/ethereum"
-keys_path = "/Users/peiling/Projects/dingpl716/nft_news/resources/parity/keys"
+keys_path = "/Users/peiling/Projects/dingpl716/Stela/resources/parity/keys"
 
 [account]
-password = ["/Users/peiling/Projects/dingpl716/nft_news/resources/parity/password"]
+password = ["/Users/peiling/Projects/dingpl716/Stela/resources/parity/password"]
 
 [mining]
 # The authrity to sing blocks.

@@ -1,5 +1,5 @@
 TOP_DIR=.
-NFT_NEWS_HOME=${TOP_DIR}
+PROJECT_HOME=${TOP_DIR}
 
 build:
 	@echo "Building the software..."
