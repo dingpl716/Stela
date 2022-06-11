@@ -3,7 +3,11 @@ PROJECT_HOME=${TOP_DIR}
 
 build:
 	@echo "Building the software..."
-	# @rm -rf _build/dev/lib/{ocap_rpc,abi}
+	@make format
+
+build-all:
+	@echo "Building the software..."
+	@rm -rf _build/dev/lib/{ocap_rpc,abi}
 	@make format
 
 format:
@@ -59,6 +63,24 @@ hdconsole:
 	@npx hardhat console --network localhost
 
 run-contracts: build-contracts deploy-contracts hdconsole
+
+asm:
+	@solc contracts/Stela.sol \
+    	--base-path . \
+    	--include-path node_modules/ \
+    	--asm \
+    	-o ./out \
+    	--optimize \
+    	--optimize-runs=1000
+
+bin:
+	@solc contracts/Stela.sol \
+    	--base-path . \
+    	--include-path node_modules/ \
+    	--bin \
+    	-o ./out \
+    	--optimize \
+    	--optimize-runs=1000
 
 # include .makefiles/*.mk
 

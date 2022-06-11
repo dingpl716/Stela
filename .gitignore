@@ -28,3 +28,9 @@ stela-*.tar
 /artifacts/
 # hardhat tmp files
 /cache/
+
+# Output of solc
+/solc_out/
+
+# Auto generated files from the build process.
+/priv/gen/

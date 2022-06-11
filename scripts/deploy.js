@@ -4,7 +4,10 @@ const minute = 60;
 const baseURI = "https://stela.io/";
 
 async function main() {
-  // We get the contract to deploy
+  const [deployer] = await ethers.getSigners();
+  console.log("Deploying contracts with the account:", deployer.address);
+  console.log("Account balance:", (await deployer.getBalance()).toString());
+
   const Stela = await ethers.getContractFactory('Stela');
   console.log('Deploying Stela...');
   const stela = await Stela.deploy(minute * 5, baseURI);
