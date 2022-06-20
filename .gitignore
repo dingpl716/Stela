@@ -34,3 +34,6 @@ stela-*.tar
 
 # Auto generated files from the build process.
 /priv/gen/
+
+# Erigon dev chain
+/dev_chain/
