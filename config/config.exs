@@ -9,18 +9,18 @@ config :logger, :console,
   format: "$date $time [$level] $levelpad$message\n",
   colors: [info: :green]
 
-config :ocap_rpc, :eth, chain_id: 31337
+config :ocap_rpc, :eth, chain_id: 1337
 
 config :ocap_rpc,
   env: Mix.env()
 
 config :stela, :accounts,
   deployer:
-    {"0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
-     "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"},
+    {"0x67b1d87101671b127f5f8714789C7192f7ad340e",
+     "0x26e86e45f6fc45ec6e2ecd128cec80fa1d1505e5507dcd2ae58c3130a7a97b48"},
   alice:
-    {"0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
-     "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d"},
+    {"0xa94f5374Fce5edBC8E2a8697C15331677e6EbF0B",
+     "0x45a915e4d060149eb4365960e6a7a45f334393093061116b197e3240065ff2d8"},
   bob:
     {"0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc",
      "0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a"},

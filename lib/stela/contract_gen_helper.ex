@@ -114,7 +114,7 @@ defmodule Stela.ContractGen.Helper do
         input = unquote(func_sig) |> ABI.encode(values) |> Base.encode16(case: :lower)
         c = Keyword.get(binding(), :contract)
         message = %{to: c, data: input}
-        OcapRpc.Eth.Chain.call(message)
+        OcapRpc.Eth.Chain.call(message, :latest)
       end
     end
   end

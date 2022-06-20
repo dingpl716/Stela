@@ -21,6 +21,7 @@ clean:
 	@rm -rf artifacts
 	@rm -rf priv/gen
 	@rm -rf solc_out
+	@rm -rf _build/dev_chain
 
 build:
 	@make contracts
@@ -58,6 +59,7 @@ rebuild-deps:
 # ------------------------------------  Chain Related  -----------------------------------------
 chain:
 	@echo "Running Erigon chain..."
+	@rm -rf dev_chain
 	@erigon \
 		--datadir=dev_chain \
 		--chain dev \
@@ -85,7 +87,6 @@ contracts:
 	@npx hardhat compile
 
 deploy:
-	@make chain
 	@mix stela.deploy stela
 
 hd-contracts:
