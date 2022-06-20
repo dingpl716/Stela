@@ -1,4 +1,37 @@
 defmodule Stela.ContractGen.Helper do
+  require UtilityBelt.CodeGen.DynamicModule
+  alias UtilityBelt.CodeGen.DynamicModule
+
+  def gen_contract(contract_json_path, module_name) do
+    preamble =
+      quote do
+      end
+
+    contract_json =
+      contract_json_path
+      |> File.read!()
+      |> Poison.decode!()
+
+    abi_list = contract_json["abi"]
+    bytecode = contract_json["bytecode"]
+
+    [constructor] = Enum.filter(abi_list, fn abi -> abi["type"] == "constructor" end)
+    functions = Enum.filter(abi_list, fn abi -> abi["type"] == "function" end)
+
+    contents = [
+      quote_constructor(constructor, bytecode)
+      | Enum.map(functions, &quote_function_call/1)
+    ]
+
+    DynamicModule.gen(
+      module_name,
+      preamble,
+      contents,
+      doc: "This is an auto generated wraper module.",
+      path: Path.join(File.cwd!(), "priv/gen")
+    )
+  end
+
   def quote_constructor(abi, bytecode) do
     args = abi["inputs"] |> Enum.map(&Map.get(&1, "name")) |> Enum.map(&to_snake_atom/1)
     types = abi["inputs"] |> Enum.map(&Map.get(&1, "type")) |> Enum.join(",")
@@ -20,7 +53,7 @@ defmodule Stela.ContractGen.Helper do
              |> Base.encode16(case: :lower))
 
         k = Keyword.get(binding(), :private_key)
-        OcapRpc.Eth.Transaction.send_transaction(k, nil, 0, input: input, gas_limit: 3_000_000)
+        OcapRpc.Eth.Transaction.send_transaction(k, nil, 0, input: input, gas_limit: 6_000_000)
       end
     end
   end
