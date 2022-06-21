@@ -16,7 +16,11 @@ defmodule Stela.ContractGen.Helper do
     bytecode = contract_json["bytecode"]
 
     [constructor] = Enum.filter(abi_list, fn abi -> abi["type"] == "constructor" end)
-    functions = Enum.filter(abi_list, fn abi -> abi["type"] == "function" end)
+
+    functions =
+      abi_list
+      |> Enum.filter(fn abi -> abi["type"] == "function" end)
+      |> Enum.sort(fn abi1, abi2 -> abi1["stateMutability"] >= abi2["stateMutability"] end)
 
     contents = [
       quote_constructor(constructor, bytecode)

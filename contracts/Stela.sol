@@ -8,19 +8,23 @@ import "./SimpleAuction.sol";
 
 contract Stela is ERC721Enumerable, Ownable {
 
-    mapping(uint256 => string) private _stelaText;
-
-    string private _tokenBaseURI;
-
-    SimpleAuction private _auctionContract;
-    bool private _auctionInProgress;
+    string public uriBase;
+    
+    // A boolean value that indicates if there is an auction in progress. 
+    bool public auctionInProgress;
     
     // Timestamp of last minted stela
-    uint256 private _lastMintTime;
+    uint256 public lastMintTime;
 
-    // Number of seconds between mints;
-    uint256 private immutable _mintInterval; 
+    // Number of seconds between auctions.
+    uint256 public immutable auctiontInterval;
+    
+    // The mapping from token id to text associated with the token.
+    mapping(uint256 => string) private _stelaText;
 
+    // The contract that handles token auction.
+    SimpleAuction private _auctionContract;
+    
     /**
      * @dev Emitted when stela text of `tokenId` token is updated by `from` to `text`.
      */
@@ -38,23 +42,22 @@ contract Stela is ERC721Enumerable, Ownable {
      */
     event AuctionEnded(uint256 tokenId, address auctionContractAddress, address winner, uint256 amount);
     
-    constructor(uint256 mintInterval, string memory baseURI) ERC721("Stela", "ST") {
-        _tokenBaseURI = baseURI;
-        _mintInterval = mintInterval;
-     }
+    constructor(uint256 _auctiontInterval, string memory baseURI) ERC721("Stela", "ST") {
+        uriBase = baseURI;
+        auctiontInterval = _auctiontInterval;
+    }
 
-    
     /**
      * @dev Base URI for computing {tokenURI}. If set, the resulting URI for each
      * token will be the concatenation of the `baseURI` and the `tokenId`. Empty
      * by default, can be overridden in child contracts.
      */
     function _baseURI() internal view override returns (string memory) {
-        return _tokenBaseURI;
+        return uriBase;
     }
 
     function updateBaseURI(string memory newURI) public onlyOwner {
-        _tokenBaseURI = newURI;
+        uriBase = newURI;
     }
 
     function safeMint(address to, uint256 tokenId) public onlyOwner {
@@ -76,12 +79,12 @@ contract Stela is ERC721Enumerable, Ownable {
 
     function startAuction(uint256 tokenId, uint256 biddingTime, uint256 minBid) public onlyOwner returns (address) {
         require(!_exists(tokenId), "Cannot start auction for an existent token.");
-        require(!_auctionInProgress, "One auction is already in progress.");
-        require(_lastMintTime + _mintInterval <= block.timestamp, "Cannot start new auction yet.");
+        require(!auctionInProgress, "One auction is already in progress.");
+        require(lastMintTime + auctiontInterval <= block.timestamp, "Cannot start new auction yet.");
         
         _auctionContract = new SimpleAuction(tokenId, biddingTime, payable(_msgSender()), minBid);
-        _auctionInProgress = true;
-        _lastMintTime = block.timestamp;
+        auctionInProgress = true;
+        lastMintTime = block.timestamp;
         address auctionContractAddress = address(_auctionContract);
 
         emit AuctionStarted(tokenId, auctionContractAddress, biddingTime, minBid);
@@ -89,7 +92,7 @@ contract Stela is ERC721Enumerable, Ownable {
     }
 
     function endAuction() public onlyOwner {
-        require(_auctionInProgress, "No auction in progress.");
+        require(auctionInProgress, "No auction is in progress.");
 
         uint256 amount = _auctionContract.highestBid();
         uint256 tokenId = _auctionContract.auctionTokenId();
@@ -101,7 +104,7 @@ contract Stela is ERC721Enumerable, Ownable {
 
         _auctionContract.auctionEnd();
 
-        _auctionInProgress = false;
+        auctionInProgress = false;
 
         emit AuctionEnded(tokenId, address(_auctionContract), winner, amount);
 
@@ -109,7 +112,7 @@ contract Stela is ERC721Enumerable, Ownable {
     }
 
     function getAuction() public view returns (address) {
-        require(_auctionInProgress, "No auction is in progress now.");
+        require(auctionInProgress, "No auction is in progress now.");
         return address(_auctionContract);
     }
 }
